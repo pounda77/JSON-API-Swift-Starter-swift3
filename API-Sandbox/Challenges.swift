@@ -26,7 +26,9 @@ internal func exerciseOne() {
     
     // Alright, now we have a JSON object from SwiftyJSON containing the user data!
     // Let's save the user's first name to a constant!
+    
     let firstName = userData["results"][0]["name"]["first"].stringValue
+    
     // Do you see what we did there? We navigated down the JSON heirarchy, asked for "results",
     // then the first dictionary value of that array, then the dictionary stored in "name",
     // then the value stored in "first". We  then told it that we wanted the value as a string.
@@ -41,9 +43,16 @@ internal func exerciseOne() {
      
      */
     
+    let lastName = userData["results"][0]["name"]["last"].stringValue
+    let street = userData["results"][0]["location"]["street"].stringValue
+    let city = userData["results"][0]["location"]["city"].stringValue
+    let state = userData["results"][0]["location"]["state"].stringValue
+    let postcode = userData["results"][0]["location"]["postcode"].intValue
+    let title = userData["results"][0]["name"]["title"].stringValue
+    let email = userData["results"][0]["email"].stringValue
+    let cell = userData["results"][0]["cell"].stringValue
     
-    
-    
+    print(firstName.capitalized,lastName.capitalized,"lives at",street.capitalized,"in",city.capitalized,state.capitalized,postcode,". If you want to contact",title.capitalized,lastName.capitalized,"you can email",email,"or call at",cell,".")
     
 }
 
