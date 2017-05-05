@@ -43,6 +43,8 @@ internal func exerciseOne() {
      
      */
     
+    // exercise 1 key
+    
     let lastName = userData["results"][0]["name"]["last"].stringValue
     let street = userData["results"][0]["location"]["street"].stringValue
     let city = userData["results"][0]["location"]["city"].stringValue
@@ -52,7 +54,7 @@ internal func exerciseOne() {
     let email = userData["results"][0]["email"].stringValue
     let cell = userData["results"][0]["cell"].stringValue
     
-    print(firstName.capitalized,lastName.capitalized,"lives at",street.capitalized,"in",city.capitalized,state.capitalized,postcode,". If you want to contact",title.capitalized,lastName.capitalized,"you can email",email,"or call at",cell,".")
+    print(firstName.capitalized,lastName.capitalized,"lives at",street.capitalized,"in",city.capitalized,state.capitalized,postcode,". If you want to contact",title.capitalized,lastName.capitalized,"you can email",email,"or call at",cell)
     
 }
 
@@ -77,7 +79,7 @@ internal func exerciseTwo() {
     
     // Uncomment this print statement when you are ready to check your code!
     
-//    print("The top movie is \(topMovie.name) by \(topMovie.rightsOwner). It costs $\(topMovie.price) and was released on \(topMovie.releaseDate). You can view it on iTunes here: \(topMovie.link)")
+    print("The top movie is \(topMovie.name) by \(topMovie.rightsOwner). It costs $\(topMovie.price) and was released on \(topMovie.releaseDate). You can view it on iTunes here: \(topMovie.link)")
 }
 
 internal func exerciseThree() {
@@ -101,11 +103,21 @@ internal func exerciseThree() {
      
      Figure out a way to turn the allMoviesData array into Movie structs!
      
+     name: String
+     rightsOwner: String
+     price: Double
+     link: String
+     releaseDate: String
+     
      */
+    
     var allMovies: [Movie] = []
-    
-    
-    
+
+    for index in 0 ... allMoviesData.count - 1 {
+        let thisMovieData = moviesData["feed"]["entry"][index]
+        let thisMovie = Movie(json: thisMovieData)
+        allMovies.append(thisMovie)
+    }
     
     /*
      
@@ -114,10 +126,17 @@ internal func exerciseThree() {
      contains the `String` "Disney". Iterate over all the values in `allMovies` to check!
      
      */
-//    print("The following movies are Disney movies:")
     
+    print("Disney movies...")
     
-    
+    for index in 0 ... allMoviesData.count - 1 {
+        let thisMovieData = moviesData["feed"]["entry"][index]
+        let thisMovie = Movie(json: thisMovieData)
+        
+        if thisMovie.rightsOwner.contains("Disney") {
+            print(thisMovie.name)
+        }
+    }
     
     /*
      
@@ -125,10 +144,17 @@ internal func exerciseThree() {
      movie that costs less than $15. Iterate over all the values in `allMovies` to check!
      
      */
-//    print("The following movies are cost less than $15:")
     
+    print("The following movies cost less than $15:")
     
-    
+    for index in 0 ... allMoviesData.count - 1 {
+        let thisMovieData = moviesData["feed"]["entry"][index]
+        let thisMovie = Movie(json: thisMovieData)
+        
+        if thisMovie.price < 15 {
+            print(thisMovie.name, thisMovie.price )
+        }
+    }
     
     /*
      
@@ -136,9 +162,16 @@ internal func exerciseThree() {
      each movie released in 2016. Iterate over all the values in `allMovies` to check!
      
      */
-//    print("The following movies were released in 2016:")
     
+    print("The following movies were released in 2016:")
     
-    
+    for index in 0 ... allMoviesData.count - 1 {
+        let thisMovieData = moviesData["feed"]["entry"][index]
+        let thisMovie = Movie(json: thisMovieData)
+        
+        if thisMovie.releaseDate.contains("2016") {
+            print(thisMovie.name, thisMovie.releaseDate )
+        }
+    }
     
 }
