@@ -24,9 +24,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        exerciseOne()
-        exerciseTwo()
-        exerciseThree()
+        //exerciseOne()
+        //exerciseTwo()
+        //exerciseThree()
         
         let apiToContact = "https://itunes.apple.com/us/rss/topmovies/limit=25/json"
         // This code will call the iTunes top 25 movies endpoint listed above
@@ -39,7 +39,23 @@ class ViewController: UIViewController {
                     // Do what you need to with JSON here!
                     // The rest is all boiler plate code you'll use for API requests
                     
+                    // create an array of movies
+                    let allMoviesData = json["feed"]["entry"].arrayValue
                     
+                    // print the top movie to check feed works correctly
+                    let topMovieData = allMoviesData[0]
+                    let topMovie = Movie(json: topMovieData)
+                    print("Top movie....")
+                    print(topMovie)
+                    
+                    // print a random movie from the top 20 movies
+                    let randomNum:UInt32 = arc4random_uniform(UInt32(allMoviesData.count))
+                    let randomInt = Int(randomNum)
+                    let randomMovieData = allMoviesData[randomInt]
+                    let randomMovie = Movie(json: randomMovieData)
+                    print("Random movie....")
+                    print(randomMovie)
+    
                 }
             case .failure(let error):
                 print(error)
